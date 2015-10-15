@@ -48,4 +48,23 @@ describe ESQ1::Oscillator do
     end
   end
 
+  describe "relationships" do
+    it ".patch should return the patch this osc belongs to" do
+      patch = ESQ1::Patch.new(oscillators: [@oscillator])
+
+      expect(@oscillator.patch).to eq(patch)
+    end
+
+    it "can initialize with a patch" do
+      patch = ESQ1::Patch.new
+      oscillator = ESQ1::Oscillator.new(1, patch: patch)
+
+      expect(oscillator.patch).to eq(patch)
+    end
+
+    it ".dca should relate back to the oscillator" do
+      expect(@oscillator.dca.oscillator).to eq(@oscillator)
+    end
+  end
+
 end

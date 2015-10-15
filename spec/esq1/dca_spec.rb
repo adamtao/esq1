@@ -42,6 +42,22 @@ describe ESQ1::DCA do
     it "initializes the pan setting" do
       expect(@dca4.pan).to eq(8)
     end
+
+    it "should initialize with a patch" do
+      patch = ESQ1::Patch.new
+      dca4 = ESQ1::DCA.new(4, patch: patch)
+
+      expect(dca4.patch).to eq(patch)
+    end
+  end
+
+  describe "not DCA4" do
+    it "should initialize with an oscillator" do
+      oscillator = ESQ1::Oscillator.new(1)
+      dca = ESQ1::DCA.new(1, oscillator: oscillator)
+
+      expect(dca.oscillator).to eq(oscillator)
+    end
   end
 
 end

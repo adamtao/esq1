@@ -5,6 +5,7 @@ module ESQ1
 
   class Oscillator
     attr_accessor :number, :wave, :octave, :semitone, :fine, :modulators, :dca
+    attr_accessor :patch # the patch this oscillator belongs to
 
     WAVES = %w(
       SAW
@@ -44,15 +45,18 @@ module ESQ1
 
     def initialize(number, opts={})
       @number = number
-      @wave = opts[:wave] || 0
-      @octave = opts[:octave] || 0
-      @semitone = opts[:semitone] || 0
-      @fine = opts[:fine] || 0
-      @modulators = initialize_modulators(opts[:modulators] || [])
-      @dca = opts[:dca] || ESQ1::DCA.new(@number)
+      @wave = opts.fetch :wave, 0
+      @octave = opts.fetch :octave, 0
+      @semitone = opts.fetch :semitone, 0
+      @fine = opts.fetch :fine, 0
+      @dca = opts.fetch :dca, ESQ1::DCA.new(@number, oscillator: self)
+
+      @modulators = initialize_modulators(opts[:modulators])
+      @patch = opts[:patch]
     end
 
-    def initialize_modulators(modulators=[])
+    def initialize_modulators(modulators)
+      modulators ||= []
       ESQ1::Modulator.build_missing(total: 2, modulators: modulators)
     end
 

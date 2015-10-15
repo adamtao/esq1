@@ -5,13 +5,14 @@ module ESQ1
   class LFO
     attr_accessor :number,
       :frequency,
-      :time1,
-      :time2,
+      :level1,
+      :level2,
       :delay,
       :reset,
       :humanize,
       :wave,
       :modulator
+    attr_accessor :patch
 
     WAVES = %w(
       TRI
@@ -22,14 +23,15 @@ module ESQ1
 
     def initialize(number, opts={})
       @number = number
-      @frequency = opts[:frequency] || 0
-      @time1 = opts[:time1] || 0
-      @time2 = opts[:time2] || 0
-      @delay = opts[:delay] || 0
-      @reset = opts[:reset] || false
-      @humanize = opts[:humanize] || false
-      @wave = opts[:wave] || 0
-      @modulator = opts[:modulator] || ESQ1::Modulator.new
+      @frequency = opts.fetch :frequency, 0
+      @level1 = opts.fetch :level1, 0
+      @level2 = opts.fetch :level2, 0
+      @delay = opts.fetch :delay, 0
+      @reset = opts.fetch :reset, false
+      @humanize = opts.fetch :humanize, false
+      @wave = opts.fetch :wave, 0
+      @modulator = opts.fetch :modulator, ESQ1::Modulator.new
+      @patch = opts[:patch]
     end
 
     def wave_name

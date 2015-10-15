@@ -26,31 +26,56 @@ describe ESQ1::Patch do
     expect(@patch.dca4).to be_a(ESQ1::DCA)
   end
 
-  it ".oscillators should be Oscillators" do
-    expect(@patch.oscillators.first).to be_an(ESQ1::Oscillator)
-  end
-
-  it ".lfos should be LFOs" do
-    expect(@patch.lfos.first).to be_an(ESQ1::LFO)
-  end
-
-  it ".envelopes should be Envelopes" do
-    expect(@patch.envelopes.first).to be_an(ESQ1::Envelope)
-  end
-
-  describe "DCA4" do
-    it "should be hardwired to ENV4" do
-      expect(@patch.dca4.modulators.first.source_name).to eq("ENV4")
+  describe "oscillators" do
+    it "should be an Oscillator" do
+      expect(@patch.oscillators.first).to be_an(ESQ1::Oscillator)
     end
 
-    it "should have pan and pan modulation" do
-      expect(@patch.dca4.pan).to be_an(Integer)
-      expect(@patch.dca4.modulators.length).to eq(2)
-    end
-
-    it "wont have level or 'on' like other DCAs" do
-      expect(@patch.dca4.level).to be(nil)
-      expect(@patch.dca4.on).to be(nil)
+    it "should reference back to the patch" do
+      expect(@patch.oscillators[0].patch).to eq(@patch)
     end
   end
+
+  describe "LFOs" do
+    it "should be an LFO" do
+      expect(@patch.lfos.first).to be_an(ESQ1::LFO)
+    end
+
+    it "should reference back to the patch" do
+      expect(@patch.lfos.first.patch).to eq(@patch)
+    end
+  end
+
+  describe "envelopes" do
+    it "should be an Envelope" do
+      expect(@patch.envelopes.first).to be_an(ESQ1::Envelope)
+    end
+
+    it "should reference back to the patch" do
+      expect(@patch.envelopes.first.patch).to eq(@patch)
+    end
+  end
+
+  describe "DCAs" do
+    describe "DCA4" do
+      it "should be hardwired to ENV4" do
+        expect(@patch.dca4.modulators.first.source_name).to eq("ENV4")
+      end
+
+      it "should have pan and pan modulation" do
+        expect(@patch.dca4.pan).to be_an(Integer)
+        expect(@patch.dca4.modulators.length).to eq(2)
+      end
+
+      it "wont have level or 'on' like other DCAs" do
+        expect(@patch.dca4.level).to be(nil)
+        expect(@patch.dca4.on).to be(nil)
+      end
+
+      it "should relate back to the patch" do
+        expect(@patch.dca4.patch).to eq(@patch)
+      end
+    end
+  end
+
 end

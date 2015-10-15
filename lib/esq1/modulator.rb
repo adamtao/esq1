@@ -23,8 +23,8 @@ module ESQ1
     )
 
     def initialize(opts={})
-      @source = opts[:source] || SOURCES.length - 1
-      @amount = opts[:amount] || 0
+      @source = opts.fetch :source, SOURCES.length - 1
+      @amount = opts.fetch :amount, 0
     end
 
     # Builds a number of Modulators based on provided input:
@@ -33,8 +33,8 @@ module ESQ1
     # Returns an Array of Modulators
     #
     def self.build_missing(opts={})
-      total = opts[:total] || 1
-      existing = opts[:modulators] || Array.new(total)
+      total = opts.fetch :total, 1
+      existing = opts.fetch :modulators, Array.new(total)
 
       m = Array.new(total)
       m.each_with_index do |item, i|
