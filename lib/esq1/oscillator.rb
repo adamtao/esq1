@@ -55,6 +55,16 @@ module ESQ1
       @patch = opts[:patch]
     end
 
+    def to_s
+      parts = []
+      parts << "Wave: #{ wave_name }"
+      parts << "Octave: #{ octave }"
+      parts << "Semitone: #{ semitone }"
+      parts << "Fine: #{ fine }"
+      parts << "Modulators: #{ modulators.map{|m| m.to_s }.join(', ')}"
+      parts.join(", ")
+    end
+
     def initialize_modulators(modulators)
       modulators ||= []
       ESQ1::Modulator.build_missing(total: 2, modulators: modulators)

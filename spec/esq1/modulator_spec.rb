@@ -39,4 +39,14 @@ describe ESQ1::Modulator do
     expect(@modulator.source_name).to match(/OFF/)
   end
 
+  describe ".to_s" do
+    before do
+      @mod_string = @modulator.to_s
+    end
+
+    it "shows the mod source and amount" do
+      expect(@mod_string).to eq("#{ @modulator.source_name }: #{ @modulator.amount }")
+    end
+  end
+
 end

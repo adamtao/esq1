@@ -38,6 +38,18 @@ module ESQ1
       WAVES[self.wave]
     end
 
+    def to_s
+      parts = []
+      parts << "Wave: #{ wave_name }"
+      parts << "Frequency: #{ frequency }"
+      parts << "Levels: #{ level1 }, #{ level2 }"
+      parts << "Delay: #{ delay }"
+      parts << "Reset: #{ reset }"
+      parts << "Humanize: #{ humanize }"
+      parts << "Modulator: #{ modulator.source_name }"
+      parts.join(', ')
+    end
+
   end
 
 end

@@ -73,4 +73,18 @@ describe ESQ1::Envelope do
       expect(envelope.patch).to eq(patch)
     end
   end
+
+  describe ".to_s" do
+    before do
+      @env_string = @envelope.to_s
+    end
+
+    it "should show the values" do
+      expect(@env_string).to match("Times: #{ @envelope.times.join(', ') }")
+      expect(@env_string).to match("Levels: #{ @envelope.levels.join(', ') }")
+      expect(@env_string).to match("Velocity Level: #{ @envelope.velocity_level }")
+      expect(@env_string).to match("Velocity Attack: #{ @envelope.velocity_attack }")
+      expect(@env_string).to match("Key Scaling: #{ @envelope.keyboard_scaling }")
+    end
+  end
 end

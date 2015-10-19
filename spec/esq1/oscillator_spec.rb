@@ -67,4 +67,18 @@ describe ESQ1::Oscillator do
     end
   end
 
+  describe ".to_s" do
+    before do
+      @osc_string = @oscillator.to_s
+    end
+
+    it "should list the values of the oscillator" do
+      expect(@osc_string).to match("Wave: #{@oscillator.wave_name}")
+      expect(@osc_string).to match("Octave: #{@oscillator.octave}")
+      expect(@osc_string).to match("Semitone: #{@oscillator.semitone}")
+      expect(@osc_string).to match("Fine: #{@oscillator.fine}")
+      expect(@osc_string).to include("Modulators: #{@oscillator.modulators.first.to_s}, #{@oscillator.modulators.last.to_s}")
+    end
+  end
+
 end

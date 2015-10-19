@@ -21,6 +21,19 @@ module ESQ1
       @envelope_full_cycle = opts.fetch :envelope_full_cycle, false
     end
 
+    def to_s
+      parts = []
+      parts << "Osc. Sync: #{ oscillator_sync }"
+      parts << "AM: #{ amplitude_modulation }"
+      parts << "Mono: #{ mono }"
+      parts << "Glide: #{ glide }"
+      parts << "Voice Restart: #{ voice_restart }"
+      parts << "Osc. Restart: #{ oscillator_restart }"
+      parts << "Env. Restart: #{ envelope_restart }"
+      parts << "Env. Cycle: #{ envelope_full_cycle }"
+      parts.join(', ')
+    end
+
   end
 
 end

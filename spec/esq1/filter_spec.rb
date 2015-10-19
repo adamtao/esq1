@@ -29,4 +29,17 @@ describe ESQ1::Filter do
       expect(modulators.last).to be_a(ESQ1::Modulator)
     end
   end
+
+  describe ".to_s" do
+    before do
+      @filter_string = @filter.to_s
+    end
+
+    it "should show the values" do
+      expect(@filter_string).to match("Cutoff: #{ @filter.cutoff }")
+      expect(@filter_string).to match("Resonance: #{ @filter.resonance }")
+      expect(@filter_string).to match("Key Track: #{ @filter.keyboard_tracking }")
+      expect(@filter_string).to include("Modulators: #{ @filter.modulators.map{|m| m.to_s }.join(', ')}")
+    end
+  end
 end

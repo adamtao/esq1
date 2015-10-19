@@ -78,4 +78,47 @@ describe ESQ1::Patch do
     end
   end
 
+  describe ".to_s" do
+    before do
+      @patch_string = @patch.to_s
+    end
+
+    it "should show the patch name" do
+      expect(@patch_string).to match(@patch.name)
+    end
+
+    it "should show the oscillators and DCAs" do
+      expect(@patch_string).to match("Oscillators:")
+      expect(@patch_string).to include(@patch.oscillators.first.to_s)
+      expect(@patch_string).to match("DCAs:")
+      expect(@patch_string).to include(@patch.oscillators.last.dca.to_s)
+    end
+
+    it "should show the Filter" do
+      expect(@patch_string).to match("Filter:")
+      expect(@patch_string).to include(@patch.filter.to_s)
+    end
+
+    it "should show DCA4" do
+      expect(@patch_string).to match("DCA4:")
+      expect(@patch_string).to include(@patch.dca4.to_s)
+    end
+
+    it "should show the LFOs" do
+      expect(@patch_string).to match("LFOs:")
+      expect(@patch_string).to include(@patch.lfos.first.to_s)
+    end
+
+    it "should show the Envelopes" do
+      expect(@patch_string).to match("Envelopes:")
+      expect(@patch_string).to match(@patch.envelopes[0].to_s)
+    end
+
+    it "should show the Mode" do
+      expect(@patch_string).to match("Mode:")
+      expect(@patch_string).to match(@patch.mode.to_s)
+    end
+
+  end
+
 end

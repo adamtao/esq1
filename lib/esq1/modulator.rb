@@ -27,6 +27,10 @@ module ESQ1
       @amount = opts.fetch :amount, 0
     end
 
+    def to_s
+      "#{ source_name }: #{ amount }"
+    end
+
     # Builds a number of Modulators based on provided input:
     #  build_missing(total: TOTAL_NUM_NEEDED, modulators: ARRAY_OF_MODULATORS_ALREADY_INITIALIZED)
     #

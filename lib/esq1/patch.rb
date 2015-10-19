@@ -22,6 +22,17 @@ module ESQ1
       @lfos = initialize_lfos(opts[:lfos])
     end
 
+    def to_s
+      "#{@name}:" +
+        "\n  Oscillators:\n\t#{ oscillators.map{|o| o.to_s}.join("\n\t")}" +
+        "\n  DCAs:\n\t#{ oscillators.map{|o| o.dca.to_s }.join("\n\t")}" +
+        "\n  Filter:\n\t#{ filter.to_s }" +
+        "\n  DCA4:\n\t#{ dca4.to_s }" +
+        "\n  LFOs:\n\t#{ lfos.map{|l| l.to_s}.join("\n\t")}" +
+        "\n  Envelopes:\n\t#{ envelopes.map{|e| e.to_s}.join("\n\t")}" +
+        "\n  Mode:\n\t#{ mode.to_s }"
+    end
+
     def initialize_oscillators(oscillators)
       oscillators ||= []
       o = Array.new(3) # Patches have 3 Oscillators

@@ -17,6 +17,15 @@ module ESQ1
       ESQ1::Modulator.build_missing(total: 2, modulators: modulators)
     end
 
+    def to_s
+      parts = []
+      parts << "Cutoff: #{ cutoff }"
+      parts << "Resonance: #{ resonance }"
+      parts << "Key Track: #{ keyboard_tracking }"
+      parts << "Modulators: #{ modulators.map{|m| m.to_s}.join(', ')}"
+      parts.join(', ')
+    end
+
   end
 
 end

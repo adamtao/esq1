@@ -22,11 +22,27 @@ module ESQ1
     def initialize_modulators(modulators)
       modulators ||= []
       m = ESQ1::Modulator.build_missing(total: 2, modulators: modulators)
-      if @number == 4
+      if number == 4
         m.first.source = 6 # ENV4
         m.first.amount = 63
       end
       m
+    end
+
+    def to_s
+      parts = []
+      if number == 4
+        parts << "Pan: #{ pan }"
+      else
+        parts << "Enabled: #{ on? }"
+        parts << "Level: #{ level }"
+      end
+      parts << "Modulators: #{ modulators.map{|m| m.to_s}.join(', ')}"
+      parts.join(", ")
+    end
+
+    def on?
+      on
     end
 
   end

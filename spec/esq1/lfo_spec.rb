@@ -56,4 +56,20 @@ describe ESQ1::LFO do
     end
   end
 
+  describe ".to_s" do
+    before do
+      @lfo_string = @lfo.to_s
+    end
+
+    it "shows the values" do
+      expect(@lfo_string).to match("Wave: #{ @lfo.wave_name }")
+      expect(@lfo_string).to match("Frequency: #{ @lfo.frequency }")
+      expect(@lfo_string).to match("Levels: #{ @lfo.level1 }, #{ @lfo.level2 }")
+      expect(@lfo_string).to match("Delay: #{ @lfo.delay }")
+      expect(@lfo_string).to match("Reset: #{ @lfo.reset }")
+      expect(@lfo_string).to match("Humanize: #{ @lfo.humanize }")
+      expect(@lfo_string).to include("Modulator: #{ @lfo.modulator.source_name }")
+    end
+  end
+
 end

@@ -49,6 +49,17 @@ describe ESQ1::DCA do
 
       expect(dca4.patch).to eq(patch)
     end
+
+    describe ".to_s" do
+      before do
+        @dca_string = @dca4.to_s
+      end
+
+      it "should show the values" do
+        expect(@dca_string).to match("Pan: #{ @dca4.pan }")
+        expect(@dca_string).to include("Modulators: #{ @dca4.modulators.map{|m| m.to_s}.join(', ')}")
+      end
+    end
   end
 
   describe "not DCA4" do
@@ -57,6 +68,23 @@ describe ESQ1::DCA do
       dca = ESQ1::DCA.new(1, oscillator: oscillator)
 
       expect(dca.oscillator).to eq(oscillator)
+    end
+
+    it ".on? should return a boolean" do
+      expect(@dca.on?).to be(true)
+    end
+
+    describe ".to_s" do
+      before do
+        @dca_string = @dca.to_s
+      end
+
+      it "should show the values" do
+        expect(@dca_string).to include("Enabled: #{ @dca.on? }")
+        expect(@dca_string).to match("Level: #{ @dca.level }")
+        expect(@dca_string).to include("Modulators: #{ @dca.modulators.first.to_s }, #{ @dca.modulators.last.to_s }")
+      end
+
     end
   end
 

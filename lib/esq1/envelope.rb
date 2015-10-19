@@ -45,6 +45,16 @@ module ESQ1
       @time1, @time2, @time3, @time4 = data
     end
 
+    def to_s
+      parts = []
+      parts << "Times: #{ times.join(', ') }"
+      parts << "Levels: #{ levels.join(', ') }"
+      parts << "Velocity Level: #{ velocity_level }"
+      parts << "Velocity Attack: #{ velocity_attack }"
+      parts << "Key Scaling: #{ keyboard_scaling }"
+      parts.join(', ')
+    end
+
   end
 
 end
