@@ -154,7 +154,7 @@ module ESQ1
       oscillator.octave = (data / 12).to_i - 3
       oscillator.semitone = (data % 12).to_i
 
-      oscillator.fine = @bytes.next
+      oscillator.fine = @bytes.next >> 3
 
       data = @bytes.next
       oscillator.modulators.last.source = (data & 0xF0) >> 4
