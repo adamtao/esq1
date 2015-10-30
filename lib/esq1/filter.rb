@@ -26,6 +26,20 @@ module ESQ1
       parts.join(', ')
     end
 
+    def to_h
+      h = {
+        "cutoff" => cutoff,
+        "resonance" => resonance,
+        "keyboard_tracking" => keyboard_tracking
+      }
+      modulators.each_with_index do |m,i|
+        m.to_h.each do |k,v|
+          h["modulation_#{ k }_#{ i + 1 }"] = v
+        end
+      end
+      h
+    end
+
   end
 
 end

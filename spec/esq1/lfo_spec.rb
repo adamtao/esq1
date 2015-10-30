@@ -72,4 +72,23 @@ describe ESQ1::LFO do
     end
   end
 
+  describe ".to_h should generate a flat hash of parameters" do
+    before do
+      @h = @lfo.to_h
+      @keys = @h.keys
+    end
+
+    it "has these parameters" do
+      expect(@keys).to include("wave")
+      expect(@keys).to include("wave_name")
+      expect(@keys).to include("frequency")
+      expect(@keys).to include("humanize")
+      expect(@keys).to include("reset")
+      expect(@keys).to include("level1")
+      expect(@keys).to include("level2")
+      expect(@keys).to include("delay")
+      expect(@keys).to include("modulation_source_name")
+    end
+  end
+
 end

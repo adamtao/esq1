@@ -50,6 +50,20 @@ module ESQ1
       parts.join(', ')
     end
 
+    def to_h
+      {
+        'frequency' => frequency,
+        'wave' => wave,
+        'wave_name' => wave_name,
+        'level1' => level1,
+        'level2' => level2,
+        'delay' => delay,
+        'reset' => reset,
+        'humanize' => humanize,
+        'modulation_source_name' => modulator.source_name
+      }
+    end
+
   end
 
 end

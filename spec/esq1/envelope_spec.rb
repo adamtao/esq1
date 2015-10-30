@@ -9,12 +9,12 @@ describe ESQ1::Envelope do
   subject { @envelope }
   it { should respond_to :number }
   it { should respond_to :time1 }
-  it { should respond_to :level1 }
   it { should respond_to :time2 }
-  it { should respond_to :level2 }
   it { should respond_to :time3 }
-  it { should respond_to :level3 }
   it { should respond_to :time4 }
+  it { should respond_to :level1 }
+  it { should respond_to :level2 }
+  it { should respond_to :level3 }
   it { should respond_to :velocity_level }
   it { should respond_to :velocity_attack }
   it { should respond_to :keyboard_scaling }
@@ -85,6 +85,26 @@ describe ESQ1::Envelope do
       expect(@env_string).to match("Velocity Level: #{ @envelope.velocity_level }")
       expect(@env_string).to match("Velocity Attack: #{ @envelope.velocity_attack }")
       expect(@env_string).to match("Key Scaling: #{ @envelope.keyboard_scaling }")
+    end
+  end
+
+  describe ".to_h should generate a flat hash of parameters" do
+    before do
+      @h = @envelope.to_h
+      @keys = @h.keys
+    end
+
+    it "has these parameters" do
+      expect(@keys).to include("time1")
+      expect(@keys).to include("time2")
+      expect(@keys).to include("time3")
+      expect(@keys).to include("time4")
+      expect(@keys).to include("level1")
+      expect(@keys).to include("level2")
+      expect(@keys).to include("level3")
+      expect(@keys).to include("velocity_level")
+      expect(@keys).to include("velocity_attack")
+      expect(@keys).to include("keyboard_scaling")
     end
   end
 end

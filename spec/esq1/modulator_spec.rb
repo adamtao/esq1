@@ -49,4 +49,16 @@ describe ESQ1::Modulator do
     end
   end
 
+  describe ".to_h" do
+    before do
+      @h = @modulator.to_h
+    end
+
+    it "has these values" do
+      expect(@h.keys).to include("source")
+      expect(@h.keys).to include("source_name")
+      expect(@h.keys).to include("amount")
+    end
+  end
+
 end

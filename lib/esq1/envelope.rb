@@ -55,6 +55,21 @@ module ESQ1
       parts.join(', ')
     end
 
+    def to_h
+      {
+        'time1' => time1,
+        'time2' => time2,
+        'time3' => time3,
+        'time4' => time4,
+        'level1' => level1,
+        'level2' => level2,
+        'level3' => level3,
+        'velocity_level' => velocity_level,
+        'velocity_attack' => velocity_attack,
+        'keyboard_scaling' => keyboard_scaling
+      }
+    end
+
   end
 
 end

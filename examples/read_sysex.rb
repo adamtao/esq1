@@ -11,3 +11,7 @@ sysex_data = File.open(file, 'rb').read
 
 puts @sysex.patches.first.to_s
 
+#puts "-------------------"
+
+#puts @sysex.patches.first.to_h.inspect
+

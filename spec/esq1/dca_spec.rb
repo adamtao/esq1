@@ -84,7 +84,22 @@ describe ESQ1::DCA do
         expect(@dca_string).to match("Level: #{ @dca.level }")
         expect(@dca_string).to include("Modulators: #{ @dca.modulators.first.to_s }, #{ @dca.modulators.last.to_s }")
       end
+    end
 
+    describe ".to_h should generate a flat hash of parameters" do
+      before do
+        @h = @dca.to_h
+        @keys = @h.keys
+      end
+
+      it "has these parameters" do
+        expect(@keys).to include("on")
+        expect(@keys).to include("level")
+        expect(@keys).to include("modulation_source_1")
+        expect(@keys).to include("modulation_amount_1")
+        expect(@keys).to include("modulation_source_2")
+        expect(@keys).to include("modulation_amount_2")
+      end
     end
   end
 

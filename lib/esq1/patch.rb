@@ -33,6 +33,35 @@ module ESQ1
         "\n  Mode:\n\t#{ mode.to_s }"
     end
 
+    def to_h
+      h = {'name' => name}
+      oscillators.each do |osc|
+        osc.to_h.each do |k,v|
+          h["oscillator_#{ osc.number }_#{ k }"] = v
+        end
+        osc.dca.to_h.each do |k,v|
+          h["dca_#{ osc.dca.number }_#{ k }"] = v
+        end
+      end
+      dca4.to_h.each do |k,v|
+        h["dca_#{ dca4.number }_#{ k }"] = v
+      end
+      filter.to_h.each do |k,v|
+        h["filter_#{ k }"] = v
+      end
+      lfos.each do |lfo|
+        lfo.to_h.each do |k,v|
+          h["lfo_#{ lfo.number }_#{ k }"] = v
+        end
+      end
+      envelopes.each do |env|
+        env.to_h.each do |k,v|
+          h["envelope_#{ env.number }_#{ k }"] = v
+        end
+      end
+      h.merge mode.to_h
+    end
+
     def initialize_oscillators(oscillators)
       oscillators ||= []
       o = Array.new(3) # Patches have 3 Oscillators

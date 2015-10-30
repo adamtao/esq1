@@ -121,4 +121,90 @@ describe ESQ1::Patch do
 
   end
 
+  describe ".to_h should generate a flat hash of parameters" do
+    before do
+      @h = @patch.to_h
+      @keys = @h.keys
+    end
+
+    it "has these parameters" do
+      expect(@keys).to include('name')
+
+      # The Oscillators
+      (1..3).each do |n|
+        expect(@keys).to include("oscillator_#{ n }_wave_name")
+        expect(@keys).to include("oscillator_#{ n }_octave")
+        expect(@keys).to include("oscillator_#{ n }_semitone")
+        expect(@keys).to include("oscillator_#{ n }_fine")
+        expect(@keys).to include("oscillator_#{ n }_modulation_source_name_1")
+        expect(@keys).to include("oscillator_#{ n }_modulation_amount_1")
+        expect(@keys).to include("oscillator_#{ n }_modulation_source_name_2")
+        expect(@keys).to include("oscillator_#{ n }_modulation_amount_2")
+      end
+
+      # The DCAs
+      (1..3).each do |n|
+        expect(@keys).to include("dca_#{ n }_on")
+        expect(@keys).to include("dca_#{ n }_level")
+        expect(@keys).to include("dca_#{ n }_modulation_source_name_1")
+        expect(@keys).to include("dca_#{ n }_modulation_amount_1")
+        expect(@keys).to include("dca_#{ n }_modulation_source_name_2")
+        expect(@keys).to include("dca_#{ n }_modulation_amount_2")
+      end
+
+      # DCA4
+      expect(@keys).to include('dca_4_pan')
+      expect(@keys).to include('dca_4_modulation_source_name_1')
+      expect(@keys).to include('dca_4_modulation_amount_1')
+      expect(@keys).to include('dca_4_modulation_source_name_2')
+      expect(@keys).to include('dca_4_modulation_amount_2')
+
+      # The Filter
+      expect(@keys).to include('filter_cutoff')
+      expect(@keys).to include('filter_resonance')
+      expect(@keys).to include('filter_keyboard_tracking')
+      expect(@keys).to include('filter_modulation_source_name_1')
+      expect(@keys).to include('filter_modulation_amount_1')
+      expect(@keys).to include('filter_modulation_source_name_2')
+      expect(@keys).to include('filter_modulation_amount_2')
+
+      # The LFOs
+      (1..3).each do |n|
+        expect(@keys).to include("lfo_#{ n }_frequency")
+        expect(@keys).to include("lfo_#{ n }_reset")
+        expect(@keys).to include("lfo_#{ n }_humanize")
+        expect(@keys).to include("lfo_#{ n }_wave")
+        expect(@keys).to include("lfo_#{ n }_wave_name")
+        expect(@keys).to include("lfo_#{ n }_level1")
+        expect(@keys).to include("lfo_#{ n }_level2")
+        expect(@keys).to include("lfo_#{ n }_delay")
+        expect(@keys).to include("lfo_#{ n }_modulation_source_name")
+      end
+
+      # The Envelopes
+      (1..4).each do |n|
+        expect(@keys).to include("envelope_#{ n }_time1")
+        expect(@keys).to include("envelope_#{ n }_time2")
+        expect(@keys).to include("envelope_#{ n }_time3")
+        expect(@keys).to include("envelope_#{ n }_time4")
+        expect(@keys).to include("envelope_#{ n }_level1")
+        expect(@keys).to include("envelope_#{ n }_level2")
+        expect(@keys).to include("envelope_#{ n }_level3")
+        expect(@keys).to include("envelope_#{ n }_velocity_level")
+        expect(@keys).to include("envelope_#{ n }_velocity_attack")
+        expect(@keys).to include("envelope_#{ n }_keyboard_scaling")
+      end
+
+      # The Mode
+      expect(@keys).to include("oscillator_sync")
+      expect(@keys).to include("amplitude_modulation")
+      expect(@keys).to include("mono")
+      expect(@keys).to include("glide")
+      expect(@keys).to include("voice_restart")
+      expect(@keys).to include("oscillator_restart")
+      expect(@keys).to include("envelope_restart")
+      expect(@keys).to include("envelope_full_cycle")
+    end
+  end
+
 end

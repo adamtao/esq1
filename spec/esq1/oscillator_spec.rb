@@ -81,4 +81,23 @@ describe ESQ1::Oscillator do
     end
   end
 
+  describe ".to_h should generate a flat hash of parameters" do
+    before do
+      @h = @oscillator.to_h
+      @keys = @h.keys
+    end
+
+    it "has these parameters" do
+      expect(@keys).to include("wave")
+      expect(@keys).to include("wave_name")
+      expect(@keys).to include("octave")
+      expect(@keys).to include("semitone")
+      expect(@keys).to include("fine")
+      expect(@keys).to include("modulation_source_1")
+      expect(@keys).to include("modulation_amount_1")
+      expect(@keys).to include("modulation_source_2")
+      expect(@keys).to include("modulation_amount_2")
+    end
+  end
+
 end

@@ -31,6 +31,14 @@ module ESQ1
       "#{ source_name }: #{ amount }"
     end
 
+    def to_h
+      {
+        "source" => source,
+        "source_name" => source_name,
+        "amount" => amount
+      }
+    end
+
     # Builds a number of Modulators based on provided input:
     #  build_missing(total: TOTAL_NUM_NEEDED, modulators: ARRAY_OF_MODULATORS_ALREADY_INITIALIZED)
     #

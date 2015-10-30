@@ -34,6 +34,19 @@ module ESQ1
       parts.join(', ')
     end
 
+    def to_h
+      {
+        'oscillator_sync' => oscillator_sync,
+        'amplitude_modulation' => amplitude_modulation,
+        'mono' => mono,
+        'glide' => glide,
+        'voice_restart' => voice_restart,
+        'oscillator_restart' => oscillator_restart,
+        'envelope_restart' => envelope_restart,
+        'envelope_full_cycle' => envelope_full_cycle
+      }
+    end
+
   end
 
 end

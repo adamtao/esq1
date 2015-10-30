@@ -42,4 +42,21 @@ describe ESQ1::Filter do
       expect(@filter_string).to include("Modulators: #{ @filter.modulators.map{|m| m.to_s }.join(', ')}")
     end
   end
+
+  describe ".to_h should generate a flat hash of parameters" do
+    before do
+      @h = @filter.to_h
+      @keys = @h.keys
+    end
+
+    it "has these parameters" do
+      expect(@keys).to include("cutoff")
+      expect(@keys).to include("resonance")
+      expect(@keys).to include("keyboard_tracking")
+      expect(@keys).to include("modulation_source_1")
+      expect(@keys).to include("modulation_amount_1")
+      expect(@keys).to include("modulation_source_2")
+      expect(@keys).to include("modulation_amount_2")
+    end
+  end
 end
