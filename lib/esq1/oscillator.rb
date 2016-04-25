@@ -21,7 +21,6 @@ module ESQ1
       EL_PNO
       VOICE_1
       VOICE_2
-      VOICE_3
       KICK
       REED
       ORGAN
