@@ -44,7 +44,7 @@ describe ESQ1::Oscillator do
   describe "class constants" do
     it "WAVES should return an array of waves" do
       expect(ESQ1::Oscillator::WAVES).to be_an(Array)
-      expect(ESQ1::Oscillator::WAVES.length).to eq(33)
+      expect(ESQ1::Oscillator::WAVES.length).to eq(32)
     end
   end
 

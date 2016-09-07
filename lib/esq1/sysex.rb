@@ -70,12 +70,12 @@ module ESQ1
       # Next byte is Voice restart and Filter mod (1) depth
       data = @bytes.next
       patch.mode.voice_restart = bit_true?(data)
-      patch.filter.modulators.first.amount = data & 0x7F
+      patch.filter.modulators.first.amount = format_number( data & 0x7F )
 
       # Next byte is Mono mode and Filter mod (2) depth
       data = @bytes.next
       patch.mode.mono = bit_true?(data)
-      patch.filter.modulators.last.amount = data & 0x7F
+      patch.filter.modulators.last.amount = format_number( data & 0x7F )
 
       # Next byte is Env restart and Filter keyboard tracking
       data = @bytes.next
@@ -98,7 +98,7 @@ module ESQ1
       # Next byte is CYCle and Pan mod amount
       data = @bytes.next
       patch.mode.envelope_full_cycle = bit_true?(data)
-      patch.dca4.modulators.last.amount = large_range_number( data & 0x3F )
+      patch.dca4.modulators.last.amount = format_number( data & 0x3F )
 
       # Next should be F7 (end sysex)
       #unless @bytes.next == 0xF7
@@ -108,7 +108,7 @@ module ESQ1
     end
 
     def parse_envelope(envelope)
-      envelope.levels = Array.new(3) { |i| large_range_number(@bytes.next) }
+      envelope.levels = Array.new(3) { |i| format_number(@bytes.next) }
       envelope.times  = Array.new(4) { |i| get_envelope_time(@bytes.next) }
       envelope.velocity_level = @bytes.next >> 2
       envelope.velocity_attack = @bytes.next
@@ -160,8 +160,8 @@ module ESQ1
       oscillator.modulators.last.source = (data & 0xF0) >> 4
       oscillator.modulators.first.source = data & 0x0F
 
-      oscillator.modulators.first.amount = large_range_number(@bytes.next)
-      oscillator.modulators.last.amount = large_range_number(@bytes.next)
+      oscillator.modulators.first.amount = format_number(@bytes.next)
+      oscillator.modulators.last.amount = format_number(@bytes.next)
       oscillator.wave = @bytes.next
 
       # DCA params
@@ -174,16 +174,24 @@ module ESQ1
       dca.modulators.last.source = (data & 0xF0) >> 4
       dca.modulators.first.source = data & 0x0F
 
-      dca.modulators.first.amount = large_range_number(@bytes.next)
-      dca.modulators.last.amount = large_range_number(@bytes.next)
+      dca.modulators.first.amount = format_number(@bytes.next)
+      dca.modulators.last.amount = format_number(@bytes.next)
     end
 
-    def large_range_number(byte)
+    def format_number(byte)
       num = byte >> 1
-      if num > 64
-        num = num - 128
+      case
+        when num < 0
+          raise "Number can't be negative"
+        when num < 64
+          num
+        when num == 64
+          raise "Number can't be 64"
+        when num <= 127
+          num - 128
+      else
+        raise "Number can't be translated"
       end
-      num
     end
 
     def bit_true?(byte, position=1)
